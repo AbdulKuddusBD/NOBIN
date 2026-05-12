@@ -2,119 +2,251 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOBIN Two Label Print</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>NOBIN Label Studio Pro</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
-    body {
-      background: #f2f2f2;
-      font-family: Arial, Helvetica, sans-serif;
+    * {
+      box-sizing: border-box;
     }
 
-    .control-panel {
-      max-width: 1100px;
-      margin: 20px auto;
-      background: #fff;
-      padding: 18px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.12);
+    body {
+      background: #e9ecef;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+      margin: 0;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .dashboard {
+      max-width: 1400px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+      padding: 2rem 2rem 2.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eef2f6;
+      padding-bottom: 1.5rem;
+    }
+
+    .dashboard-header h4 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0;
+    }
+
+    .logo-badge {
+      background: #f8fafc;
+      border-radius: 40px;
+      padding: 0.4rem 1.5rem;
+      font-weight: 500;
+      border: 1px solid #e2e8f0;
+    }
+
+    .label-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .label-card {
+      background: #f9fbfd;
+      border-radius: 20px;
+      padding: 1.2rem 1.3rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+
+    .label-card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-header span {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .remove-label-btn {
+      color: #b91c1c;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.2s;
+      line-height: 1;
+    }
+
+    .remove-label-btn:hover {
+      opacity: 1;
+      transform: scale(1.1);
     }
 
     textarea {
-      min-height: 220px;
-      font-size: 17px;
+      min-height: 160px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      border: 1px solid #dce3eb;
+      padding: 0.8rem 1rem;
+      resize: vertical;
     }
 
-    .help-text {
-      font-size: 14px;
-      color: #666;
-      margin-top: 6px;
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
-    /* A4 landscape full page */
+    .btn {
+      border-radius: 40px;
+      padding: 0.65rem 1.8rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
     .a4-page {
       width: 297mm;
       height: 210mm;
-      background: #fff;
-      margin: 20px auto 40px;
-      box-sizing: border-box;
+      background: white;
+      margin: 0 auto 2rem;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
       display: flex;
       flex-direction: column;
-      gap: 6mm; /* মাঝখানে কাটার জন্য ফাঁকা জায়গা */
       overflow: hidden;
+      border: 1px solid #aaa;
+      page-break-after: always;
+    }
+
+    .a4-page:last-child {
+      page-break-after: auto;
     }
 
     .label-box {
       width: 100%;
-      height: calc((210mm - 6mm) / 2);
+      flex: 1 1 0;
       border: 2px solid #000;
       position: relative;
       box-sizing: border-box;
-      padding: 8mm 8mm 5mm 8mm;
+      padding: 8mm 7mm 6mm 7mm;
+      background: #ffffff;
+      display: flex;
+      align-items: flex-start;
       overflow: hidden;
-      background: #fff;
+      min-height: 0;
+    }
+
+    .label-box + .label-box {
+      border-top: none;
+    }
+
+    .label-gap {
+      width: 100%;
+      height: 6mm;
+      background: #f8f9fa;
+      border-left: 2px solid #000;
+      border-right: 2px solid #000;
+      box-sizing: border-box;
+      flex-shrink: 0;
     }
 
     .logo {
       position: absolute;
-      top: 8mm;
-      right: 9mm;
-      width: 58mm;
-      max-height: 22mm;
+      top: 5mm;
+      right: 6mm;
+      width: 85mm;
+      max-height: 32mm;
       object-fit: contain;
       object-position: right top;
-      display: none;
-      background: transparent;
+      z-index: 2;
     }
 
     .label-content {
-      width: calc(100% - 65mm);
+      width: calc(100% - 95mm);
+      z-index: 1;
     }
 
     .label-line {
       color: #000;
       font-weight: 500;
       margin: 0;
-      line-height: 1.04;
-      font-size: 15mm;
+      line-height: 1.15;
+      font-size: 6.5mm;
       white-space: nowrap;
     }
 
     .date-line {
       margin-bottom: 4mm;
+      font-weight: 700;
+      font-size: 7mm;
     }
 
     .name-line {
-      margin-bottom: 3mm;
+      margin-bottom: 3.5mm;
+      font-weight: 800;
+      font-size: 7.5mm;
     }
 
     .mobile-line {
-      margin-bottom: 2mm;
+      margin-bottom: 3.5mm;
+      font-size: 6.8mm;
     }
 
     .address-line {
-      margin-bottom: 2mm;
+      margin-bottom: 3.5mm;
+      font-size: 6.5mm;
     }
 
     .mobile-gap {
       display: inline-block;
-      width: 18mm;
+      width: 22mm;
     }
 
     .price-gap {
       display: inline-block;
-      width: 12mm;
+      width: 15mm;
+    }
+
+    .size-price-line {
+      font-size: 7mm;
+      font-weight: 700;
     }
 
     @media print {
       body {
-        background: #fff !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        background: white;
+        margin: 0;
+        padding: 0;
       }
 
+      .dashboard,
       .no-print {
         display: none !important;
       }
@@ -123,220 +255,291 @@
         width: 297mm;
         height: 210mm;
         margin: 0;
-        gap: 6mm;
-        page-break-inside: avoid;
+        box-shadow: none;
+        border: none;
+        page-break-after: always;
       }
 
-      .label-box {
-        height: calc((210mm - 6mm) / 2);
+      .a4-page:last-child {
+        page-break-after: auto;
+      }
+
+      .label-gap {
+        background: #fff;
+        border-left: 2px solid #000;
+        border-right: 2px solid #000;
       }
 
       @page {
-        size: A4 landscape;
+        size: A4 portrait;
         margin: 0;
       }
     }
   </style>
 </head>
-
 <body>
-
-  <div class="control-panel no-print">
-    <h4 class="mb-3">A4 পেপারে ২টা Label Print</h4>
-
-    <div class="row g-3">
-      <div class="col-md-6">
-        <label class="form-label fw-bold">Label 1 তথ্য</label>
-        <textarea id="input1" class="form-control">12/05/2026
-Masud Rana
-01303-694177
-Savar, Baipail, Polashbari
-L.
-990
-120</textarea>
-        <div class="help-text">
-          লাইন অনুযায়ী: Date, Name, Mobile, Address, Size, Price, Delivery
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <label class="form-label fw-bold">Label 2 তথ্য</label>
-        <textarea id="input2" class="form-control">12/05/2026
-Masud Rana
-01303-694177
-Savar, Baipail, Polashbari
-L.
-990
-120</textarea>
-        <div class="help-text">
-          লাইন অনুযায়ী: Date, Name, Mobile, Address, Size, Price, Delivery
-        </div>
+  <div class="dashboard no-print">
+    <div class="dashboard-header">
+      <h4><i class="bi bi-tags-fill"></i> NOBIN Label Studio Pro</h4>
+      <div class="logo-badge">
+        <i class="bi bi-image"></i>
+        <span id="logoStatus">লোড হচ্ছে...</span>
       </div>
     </div>
 
-    <div class="mt-4 d-flex gap-2">
-      <button class="btn btn-primary" onclick="generateLabels()">Generate</button>
-      <button class="btn btn-success" onclick="window.print()">Print / Save PDF</button>
+    <div id="labelCardsContainer" class="label-grid"></div>
+
+    <div class="d-flex justify-content-center mb-4">
+      <button class="btn btn-outline-primary" id="addLabelBtn">
+        <i class="bi bi-plus-circle-fill me-2"></i> নতুন লেবেল যোগ করুন
+      </button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 bg-light p-3 rounded-4">
+      <div>
+        <button class="btn btn-primary me-2" id="refreshBtn"><i class="bi bi-arrow-repeat me-1"></i> আপডেট করুন</button>
+        <button class="btn btn-success" onclick="window.print()"><i class="bi bi-printer me-1"></i> প্রিন্ট / PDF</button>
+      </div>
+      <small class="text-muted"><i class="bi bi-info-circle"></i> প্রতি পেইজে ২টি লেবেল (A4 Landscape)</small>
     </div>
   </div>
 
-  <!-- A4 Print Area -->
-  <div class="a4-page" id="printArea">
-
-    <!-- Label 1 -->
-    <div class="label-box">
-      <img class="logo logo-preview" alt="NOBIN Logo">
-
-      <div class="label-content">
-        <p class="label-line date-line" id="l1Date">12/05/2026</p>
-        <p class="label-line name-line" id="l1Name">Masud Rana</p>
-
-        <p class="label-line mobile-line">
-          Mobile:<span class="mobile-gap"></span><span id="l1Mobile">01303-694177</span>
-        </p>
-
-        <p class="label-line address-line" id="l1Address">
-          Address:Savar, Baipail, Polashbari
-        </p>
-
-        <p class="label-line">
-          <span id="l1Size">Size:L.</span>
-          <span class="price-gap"></span>
-          <span id="l1Price">Price:990+120=1110TK</span>
-        </p>
-      </div>
-    </div>
-
-    <!-- Label 2 -->
-    <div class="label-box">
-      <img class="logo logo-preview" alt="NOBIN Logo">
-
-      <div class="label-content">
-        <p class="label-line date-line" id="l2Date">12/05/2026</p>
-        <p class="label-line name-line" id="l2Name">Masud Rana</p>
-
-        <p class="label-line mobile-line">
-          Mobile:<span class="mobile-gap"></span><span id="l2Mobile">01303-694177</span>
-        </p>
-
-        <p class="label-line address-line" id="l2Address">
-          Address:Savar, Baipail, Polashbari
-        </p>
-
-        <p class="label-line">
-          <span id="l2Size">Size:L.</span>
-          <span class="price-gap"></span>
-          <span id="l2Price">Price:990+120=1110TK</span>
-        </p>
-      </div>
-    </div>
-
-  </div>
+  <div id="printContainer"></div>
 
   <script>
-    const LOGO_SRC = './logo.jpg';
+    (function() {
+      const LOGO_URL = "https://abdulkuddusbd.github.io/NOBIN/logo.jpg";
 
-    function parseData(text) {
-      const lines = text.split('\n').map(line => line.trim());
+      const DEFAULT_LABELS = [
+        "",
+        ""
+      ];
 
-      return {
-        date: lines[0] || '',
-        name: lines[1] || '',
-        mobile: lines[2] || '',
-        address: lines[3] || '',
-        size: lines[4] || '',
-        price: Number(lines[5]) || 0,
-        delivery: Number(lines[6]) || 0
-      };
-    }
+      let labelsData = [...DEFAULT_LABELS];
+      let processedLogoDataUrl = null;
 
-    function setLabel(prefix, data) {
-      const total = data.price + data.delivery;
+      function parseData(text) {
+        const lines = text.split('\n').map(l => l.trim());
+        return {
+          date: lines[0] || '',
+          name: lines[1] || '',
+          mobile: lines[2] || '',
+          address: lines[3] || '',
+          size: lines[4] || '',
+          price: Number(lines[5]) || 0,
+          delivery: Number(lines[6]) || 0
+        };
+      }
 
-      document.getElementById(prefix + 'Date').textContent = data.date;
-      document.getElementById(prefix + 'Name').textContent = data.name;
-      document.getElementById(prefix + 'Mobile').textContent = data.mobile;
-      document.getElementById(prefix + 'Address').textContent = 'Address:' + data.address;
-      document.getElementById(prefix + 'Size').textContent = 'Size:' + data.size;
-      document.getElementById(prefix + 'Price').textContent =
-        'Price:' + data.price + '+' + data.delivery + '=' + total + 'TK';
-    }
+      function escapeHtml(t) {
+        return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
 
-    function generateLabels() {
-      const data1 = parseData(document.getElementById('input1').value);
-      const data2 = parseData(document.getElementById('input2').value);
+      function renderInputCards() {
+        const container = document.getElementById('labelCardsContainer');
+        if (!container) return;
+        container.innerHTML = '';
 
-      setLabel('l1', data1);
-      setLabel('l2', data2);
-    }
-
-    document.getElementById('input1').addEventListener('input', generateLabels);
-    document.getElementById('input2').addEventListener('input', generateLabels);
-
-    function loadAndProcessLogo() {
-      const img = new Image();
-
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        ctx.drawImage(img, 0, 0);
-
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
-          const a = data[i + 3];
-
-          if (a < 20) {
-            data[i + 3] = 0;
-            continue;
-          }
-
-          const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-
-          /*
-            logo.jpg যদি black background + white text হয়:
-            black background transparent হবে
-            white text black হবে
-          */
-
-          if (brightness < 55) {
-            data[i + 3] = 0;
-          } else {
-            data[i] = 0;
-            data[i + 1] = 0;
-            data[i + 2] = 0;
-            data[i + 3] = 255;
-          }
-        }
-
-        ctx.putImageData(imageData, 0, 0);
-
-        const transparentLogo = canvas.toDataURL('image/png');
-
-        document.querySelectorAll('.logo-preview').forEach(function(logo) {
-          logo.src = transparentLogo;
-          logo.style.display = 'block';
+        labelsData.forEach((text, idx) => {
+          const card = document.createElement('div');
+          card.className = 'label-card';
+          card.innerHTML = `
+            <div class="card-header">
+              <span><i class="bi bi-tag-fill text-primary"></i> লেবেল ${idx + 1}</span>
+              ${labelsData.length > 1 ? `<button class="remove-label-btn" data-idx="${idx}" title="সরান"><i class="bi bi-x-circle"></i></button>` : ''}
+            </div>
+            <textarea class="form-control label-textarea" data-idx="${idx}" rows="5" placeholder="তারিখ
+নাম
+মোবাইল
+ঠিকানা
+সাইজ
+মূল্য
+ডেলিভারি">${escapeHtml(text)}</textarea>
+            <div class="mt-2 d-flex gap-1 flex-wrap">
+              <span class="badge bg-light text-dark">তারিখ</span>
+              <span class="badge bg-light text-dark">নাম</span>
+              <span class="badge bg-light text-dark">মোবাইল</span>
+              <span class="badge bg-light text-dark">ঠিকানা</span>
+              <span class="badge bg-light text-dark">সাইজ</span>
+              <span class="badge bg-light text-dark">মূল্য</span>
+              <span class="badge bg-light text-dark">ডেলিভারি</span>
+            </div>
+          `;
+          container.appendChild(card);
         });
-      };
 
-      img.onerror = function() {
-        alert('logo.jpg পাওয়া যায়নি। HTML file আর logo.jpg একই folder-এ রাখুন।');
-      };
+        document.querySelectorAll('.label-textarea').forEach(ta => {
+          ta.addEventListener('input', function(e) {
+            const idx = parseInt(this.dataset.idx);
+            labelsData[idx] = this.value;
+            renderPrintPages();
+          });
+        });
 
-      img.src = LOGO_SRC;
-    }
+        document.querySelectorAll('.remove-label-btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            const idx = parseInt(this.dataset.idx);
+            if (labelsData.length <= 1) {
+              alert("অন্তত একটি লেবেল প্রয়োজন");
+              return;
+            }
+            labelsData.splice(idx, 1);
+            renderAll();
+          });
+        });
+      }
 
-    generateLabels();
-    loadAndProcessLogo();
+      function renderPrintPages() {
+        const container = document.getElementById('printContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const total = labelsData.length;
+        const pages = Math.ceil(total / 2);
+
+        for (let p = 0; p < pages; p++) {
+          const page = document.createElement('div');
+          page.className = 'a4-page';
+
+          const start = p * 2;
+          for (let i = 0; i < 2; i++) {
+            const idx = start + i;
+            if (idx < total) {
+              const data = parseData(labelsData[idx]);
+              const totalPrice = data.price + data.delivery;
+
+              const box = document.createElement('div');
+              box.className = 'label-box';
+              box.innerHTML = `
+                <img class="logo" src="${processedLogoDataUrl || ''}" alt="NOBIN Logo" style="display:${processedLogoDataUrl ? 'block' : 'none'};">
+                <div class="label-content">
+                  <p class="label-line date-line">${escapeHtml(data.date)}</p>
+                  <p class="label-line name-line">${escapeHtml(data.name)}</p>
+                  <p class="label-line mobile-line">Mobile:<span class="mobile-gap"></span>${escapeHtml(data.mobile)}</p>
+                  <p class="label-line address-line">Address: ${escapeHtml(data.address)}</p>
+                  <p class="label-line size-price-line">
+                    Size: ${escapeHtml(data.size)}<span class="price-gap"></span>
+                    Price: ${data.price}+${data.delivery}=${totalPrice}TK
+                  </p>
+                </div>
+              `;
+              page.appendChild(box);
+
+              if (i === 0 && idx + 1 < total) {
+                const gap = document.createElement('div');
+                gap.className = 'label-gap';
+                page.appendChild(gap);
+              }
+            } else {
+              const emptyBox = document.createElement('div');
+              emptyBox.className = 'label-box';
+              emptyBox.style.border = '2px dashed #ccc';
+              emptyBox.style.display = 'flex';
+              emptyBox.style.alignItems = 'center';
+              emptyBox.style.justifyContent = 'center';
+              emptyBox.innerHTML = '<div style="color:#aaa;font-size:22px;font-weight:500;">খালি লেবেল</div>';
+              page.appendChild(emptyBox);
+
+              if (i === 0) {
+                const gap = document.createElement('div');
+                gap.className = 'label-gap';
+                page.appendChild(gap);
+              }
+            }
+          }
+          container.appendChild(page);
+        }
+      }
+
+      function renderAll() {
+        renderInputCards();
+        renderPrintPages();
+      }
+
+      function processLogo() {
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = function() {
+          try {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            const totalPixels = canvas.width * canvas.height;
+            let transparentCount = 0;
+
+            for (let i = 0; i < data.length; i += 4) {
+              if (data[i + 3] < 20) transparentCount++;
+            }
+            const hasTransparency = (transparentCount / totalPixels) > 0.02;
+
+            for (let i = 0; i < data.length; i += 4) {
+              const r = data[i],
+                g = data[i + 1],
+                b = data[i + 2],
+                a = data[i + 3];
+              if (a < 20) {
+                data[i + 3] = 0;
+                continue;
+              }
+              const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+              if (hasTransparency) {
+                data[i] = 0;
+                data[i + 1] = 0;
+                data[i + 2] = 0;
+                data[i + 3] = 255;
+              } else {
+                if (brightness < 45) {
+                  data[i + 3] = 0;
+                } else {
+                  data[i] = 0;
+                  data[i + 1] = 0;
+                  data[i + 2] = 0;
+                  data[i + 3] = 255;
+                }
+              }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+            processedLogoDataUrl = canvas.toDataURL('image/png');
+
+            document.getElementById('logoStatus').textContent = '✓ লোগো প্রস্তুত';
+            document.getElementById('logoStatus').style.color = '#0f5132';
+            renderPrintPages();
+          } catch (e) {
+            console.warn('Logo processing fallback:', e);
+            processedLogoDataUrl = LOGO_URL;
+            renderPrintPages();
+            document.getElementById('logoStatus').textContent = '⚠️ লোগো (ফলব্যাক)';
+          }
+        };
+
+        img.onerror = function() {
+          processedLogoDataUrl = null;
+          document.getElementById('logoStatus').textContent = '❌ লোগো লোড হয়নি';
+          document.getElementById('logoStatus').style.color = '#b91c1c';
+          renderPrintPages();
+        };
+
+        img.src = LOGO_URL;
+      }
+
+      document.getElementById('addLabelBtn').addEventListener('click', () => {
+        labelsData.push("");
+        renderAll();
+      });
+
+      document.getElementById('refreshBtn').addEventListener('click', renderAll);
+
+      window.addEventListener('load', () => {
+        renderAll();
+        processLogo();
+      });
+    })();
   </script>
-
 </body>
 </html>
