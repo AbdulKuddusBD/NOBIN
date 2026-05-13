@@ -2,276 +2,342 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, shrink-to-fit=no">
   <title>NOBIN Label Studio Pro</title>
+  <!-- Bootstrap 5 CSS + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     * {
       box-sizing: border-box;
     }
-
     body {
-      background: #e9ecef;
+      background: #f4f7fc;
       font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
       margin: 0;
-      padding: 1.5rem 1rem;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
-
+    /* ----- dashboard card ----- */
     .dashboard {
-      max-width: 1400px;
       width: 100%;
+      max-width: 1400px;
       background: #ffffff;
-      border-radius: 28px;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
-      padding: 2rem 2rem 2.2rem;
-      margin-bottom: 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+      padding: 2rem 2rem 1.8rem;
+      margin-bottom: 2.5rem;
+      transition: all 0.2s;
     }
-
     .dashboard-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
+      gap: 1rem;
       margin-bottom: 2rem;
+      padding-bottom: 1.3rem;
       border-bottom: 1px solid #eef2f6;
-      padding-bottom: 1.5rem;
     }
-
     .dashboard-header h4 {
+      margin: 0;
+      font-size: 1.9rem;
       font-weight: 700;
-      font-size: 1.8rem;
-      color: #0f172a;
+      color: #0b1e33;
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      margin: 0;
     }
-
     .logo-badge {
       background: #f8fafc;
-      border-radius: 40px;
-      padding: 0.4rem 1.5rem;
-      font-weight: 500;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #dee4ec;
+      border-radius: 3rem;
+      padding: 0.5rem 1.6rem;
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
-
+    /* label grid cards */
     .label-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 1.5rem;
       margin-bottom: 2rem;
     }
-
     .label-card {
-      background: #f9fbfd;
-      border-radius: 20px;
-      padding: 1.2rem 1.3rem;
-      border: 1px solid #e2e8f0;
-      transition: all 0.2s;
+      background: #fbfdff;
+      border: 1px solid #e4eaf2;
+      border-radius: 1.4rem;
+      padding: 1.4rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
-
     .label-card:hover {
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.08);
+      border-color: #cbd5e1;
     }
-
     .card-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.8rem;
+      justify-content: space-between;
+      margin-bottom: 1rem;
     }
-
     .card-header span {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      color: #0f172a;
     }
-
     .remove-label-btn {
-      color: #b91c1c;
       background: none;
       border: none;
-      font-size: 1.5rem;
+      color: #b91c1c;
+      font-size: 1.6rem;
+      line-height: 1;
       cursor: pointer;
       opacity: 0.7;
       transition: 0.2s;
-      line-height: 1;
+      padding: 0 0.2rem;
     }
-
     .remove-label-btn:hover {
       opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
-
-    textarea {
-      min-height: 160px;
-      border-radius: 14px;
+    textarea.form-control {
+      border-radius: 1rem;
+      border: 1px solid #dce3ec;
+      padding: 0.9rem 1rem;
       font-size: 0.95rem;
-      border: 1px solid #dce3eb;
-      padding: 0.8rem 1rem;
       resize: vertical;
-    }
-
-    textarea:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-
-    .btn {
-      border-radius: 40px;
-      padding: 0.65rem 1.8rem;
-      font-weight: 600;
+      min-height: 150px;
+      background: #fff;
       transition: 0.2s;
     }
-
+    textarea.form-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+    .btn {
+      border-radius: 3rem;
+      padding: 0.65rem 1.8rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
     .btn:hover {
       transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
     }
-
+    /* A4 print pages */
     .a4-page {
       width: 297mm;
       height: 210mm;
       background: white;
       margin: 0 auto 2rem;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+      padding: 20px 24px;
+      gap: 14px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      border: 1px solid #aaa;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
       page-break-after: always;
+      border-radius: 4px;
     }
-
     .a4-page:last-child {
       page-break-after: auto;
     }
-
     .label-box {
+      flex: 1;
       width: 100%;
-      flex: 1 1 0;
-      border: 2px solid #000;
+      border: 4px solid #000;
       position: relative;
-      box-sizing: border-box;
-      padding: 8mm 7mm 6mm 7mm;
-      background: #ffffff;
+      padding: 45px 70px;
+      background: #fff;
       display: flex;
       align-items: flex-start;
       overflow: hidden;
-      min-height: 0;
     }
-
-    .label-box + .label-box {
-      border-top: none;
-    }
-
     .label-gap {
-      width: 100%;
-      height: 6mm;
-      background: #f8f9fa;
-      border-left: 2px solid #000;
-      border-right: 2px solid #000;
-      box-sizing: border-box;
-      flex-shrink: 0;
+      display: none;
     }
-
     .logo {
       position: absolute;
-      top: 5mm;
-      right: 6mm;
-      width: 85mm;
-      max-height: 32mm;
+      top: 22px;
+      right: 35px;
+      width: 140mm;
+      max-height: 56mm;
       object-fit: contain;
       object-position: right top;
       z-index: 2;
+      opacity: 0.95;
     }
-
     .label-content {
-      width: calc(100% - 95mm);
+      flex: 1;
+      min-width: 0;
+      padding-right: 148mm;
+      position: relative;
       z-index: 1;
     }
-
     .label-line {
       color: #000;
-      font-weight: 500;
       margin: 0;
-      line-height: 1.15;
-      font-size: 6.5mm;
-      white-space: nowrap;
-    }
-
-    .date-line {
-      margin-bottom: 4mm;
-      font-weight: 700;
-      font-size: 7mm;
-    }
-
-    .name-line {
-      margin-bottom: 3.5mm;
+      line-height: 1.4;
       font-weight: 800;
-      font-size: 7.5mm;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      font-size: 42px;
     }
-
+    .date-line {
+      margin-bottom: 12px;
+      font-size: 46px;
+      font-weight: 900;
+    }
+    .name-line {
+      margin-bottom: 12px;
+      font-size: 52px;
+      font-weight: 900;
+    }
     .mobile-line {
-      margin-bottom: 3.5mm;
-      font-size: 6.8mm;
+      margin-bottom: 10px;
+      font-size: 42px;
     }
-
     .address-line {
-      margin-bottom: 3.5mm;
-      font-size: 6.5mm;
+      margin-bottom: 10px;
+      font-size: 40px;
     }
-
+    .size-price-line {
+      font-size: 42px;
+      font-weight: 900;
+    }
     .mobile-gap {
       display: inline-block;
-      width: 22mm;
+      width: 70px;
     }
-
     .price-gap {
       display: inline-block;
-      width: 15mm;
+      width: 55px;
     }
-
-    .size-price-line {
-      font-size: 7mm;
-      font-weight: 700;
+    /* ---------- responsive ---------- */
+    @media (max-width: 992px) {
+      .dashboard {
+        padding: 1.5rem;
+      }
+      .a4-page {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 16px 10px;
+      }
+      .label-box {
+        padding: 25px 25px;
+      }
+      .logo {
+        width: 85mm;
+        max-height: 34mm;
+        top: 18px;
+        right: 18px;
+      }
+      .label-content {
+        padding-right: 90mm;
+      }
+      .label-line {
+        font-size: 22px;
+      }
+      .date-line { font-size: 26px; }
+      .name-line { font-size: 30px; }
+      .mobile-line, .address-line, .size-price-line { font-size: 22px; }
     }
-
+    @media (max-width: 768px) {
+      body {
+        padding: 0.8rem;
+      }
+      .dashboard {
+        padding: 1.2rem;
+        border-radius: 1.5rem;
+      }
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .dashboard-header h4 {
+        font-size: 1.5rem;
+      }
+      .logo-badge {
+        width: 100%;
+        justify-content: center;
+      }
+      .label-grid {
+        grid-template-columns: 1fr;
+      }
+      .a4-page {
+        padding: 10px 6px;
+        gap: 10px;
+      }
+      .label-box {
+        padding: 18px 15px;
+        border-width: 2.5px;
+      }
+      .logo {
+        width: 52mm;
+        max-height: 20mm;
+        top: 10px;
+        right: 10px;
+      }
+      .label-content {
+        padding-right: 55mm;
+      }
+      .label-line {
+        font-size: 16px;
+      }
+      .date-line { font-size: 20px; }
+      .name-line { font-size: 24px; }
+      .mobile-line, .address-line, .size-price-line { font-size: 17px; }
+      .mobile-gap, .price-gap { width: 15px; }
+    }
+    @media (max-width: 480px) {
+      .label-box {
+        padding: 14px 12px;
+      }
+      .logo {
+        width: 38mm;
+        max-height: 15mm;
+      }
+      .label-content {
+        padding-right: 40mm;
+      }
+      .label-line { font-size: 14px; }
+      .date-line { font-size: 18px; }
+      .name-line { font-size: 20px; }
+      .mobile-line, .address-line, .size-price-line { font-size: 15px; }
+    }
+    /* print */
     @media print {
       body {
         background: white;
         margin: 0;
         padding: 0;
       }
-
-      .dashboard,
-      .no-print {
+      .dashboard, .no-print {
         display: none !important;
       }
-
       .a4-page {
         width: 297mm;
         height: 210mm;
         margin: 0;
+        padding: 20px 24px;
         box-shadow: none;
-        border: none;
         page-break-after: always;
       }
-
-      .a4-page:last-child {
-        page-break-after: auto;
-      }
-
-      .label-gap {
-        background: #fff;
-        border-left: 2px solid #000;
-        border-right: 2px solid #000;
-      }
-
       @page {
-        size: A4 portrait;
+        size: A4 landscape;
         margin: 0;
       }
     }
@@ -291,16 +357,16 @@
 
     <div class="d-flex justify-content-center mb-4">
       <button class="btn btn-outline-primary" id="addLabelBtn">
-        <i class="bi bi-plus-circle-fill me-2"></i> নতুন লেবেল যোগ করুন
+        <i class="bi bi-plus-circle-fill me-2"></i> নতুন লেবেল যোগ
       </button>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 bg-light p-3 rounded-4">
-      <div>
-        <button class="btn btn-primary me-2" id="refreshBtn"><i class="bi bi-arrow-repeat me-1"></i> আপডেট করুন</button>
+    <div class="d-flex flex-wrap justify-content-between align-items-center bg-light p-3 rounded-4 gap-3">
+      <div class="d-flex gap-2 flex-wrap">
+        <button class="btn btn-primary" id="refreshBtn"><i class="bi bi-arrow-repeat me-1"></i> আপডেট</button>
         <button class="btn btn-success" onclick="window.print()"><i class="bi bi-printer me-1"></i> প্রিন্ট / PDF</button>
       </div>
-      <small class="text-muted"><i class="bi bi-info-circle"></i> প্রতি পেইজে ২টি লেবেল (A4 Landscape)</small>
+      <small class="text-muted"><i class="bi bi-info-circle"></i> প্রতি পেইজে ২টি লেবেল (A4 landscape)</small>
     </div>
   </div>
 
@@ -309,10 +375,11 @@
   <script>
     (function() {
       const LOGO_URL = "https://abdulkuddusbd.github.io/NOBIN/logo.jpg";
-
       const DEFAULT_LABELS = [
-        "",
-        ""
+        "12/05/2026\nMasud Rana\n01303-694177\nSavar, Baipail, Polashbari\nL\n990\n120",
+        "13/05/2026\nKarim Ahmed\n01712-345678\nDhaka, Mirpur-10\nM\n850\n100",
+        "14/05/2026\nFatema Akhter\n01911-223344\nChattogram, Agrabad\nXL\n1200\n150",
+        "15/05/2026\nRafiq Hasan\n01555-667788\nRajshahi, Shaheb Bazar\nM\n950\n110"
       ];
 
       let labelsData = [...DEFAULT_LABELS];
@@ -331,15 +398,14 @@
         };
       }
 
-      function escapeHtml(t) {
-        return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       }
 
       function renderInputCards() {
         const container = document.getElementById('labelCardsContainer');
         if (!container) return;
         container.innerHTML = '';
-
         labelsData.forEach((text, idx) => {
           const card = document.createElement('div');
           card.className = 'label-card';
@@ -348,13 +414,7 @@
               <span><i class="bi bi-tag-fill text-primary"></i> লেবেল ${idx + 1}</span>
               ${labelsData.length > 1 ? `<button class="remove-label-btn" data-idx="${idx}" title="সরান"><i class="bi bi-x-circle"></i></button>` : ''}
             </div>
-            <textarea class="form-control label-textarea" data-idx="${idx}" rows="5" placeholder="তারিখ
-নাম
-মোবাইল
-ঠিকানা
-সাইজ
-মূল্য
-ডেলিভারি">${escapeHtml(text)}</textarea>
+            <textarea class="form-control label-textarea" data-idx="${idx}" rows="5">${escapeHtml(text)}</textarea>
             <div class="mt-2 d-flex gap-1 flex-wrap">
               <span class="badge bg-light text-dark">তারিখ</span>
               <span class="badge bg-light text-dark">নাম</span>
@@ -393,25 +453,23 @@
         const container = document.getElementById('printContainer');
         if (!container) return;
         container.innerHTML = '';
-
         const total = labelsData.length;
         const pages = Math.ceil(total / 2);
 
         for (let p = 0; p < pages; p++) {
           const page = document.createElement('div');
           page.className = 'a4-page';
-
           const start = p * 2;
+
           for (let i = 0; i < 2; i++) {
             const idx = start + i;
             if (idx < total) {
               const data = parseData(labelsData[idx]);
               const totalPrice = data.price + data.delivery;
-
               const box = document.createElement('div');
               box.className = 'label-box';
               box.innerHTML = `
-                <img class="logo" src="${processedLogoDataUrl || ''}" alt="NOBIN Logo" style="display:${processedLogoDataUrl ? 'block' : 'none'};">
+                <img class="logo" src="${processedLogoDataUrl || ''}" alt="logo" style="display:${processedLogoDataUrl ? 'block' : 'none'};">
                 <div class="label-content">
                   <p class="label-line date-line">${escapeHtml(data.date)}</p>
                   <p class="label-line name-line">${escapeHtml(data.name)}</p>
@@ -424,7 +482,6 @@
                 </div>
               `;
               page.appendChild(box);
-
               if (i === 0 && idx + 1 < total) {
                 const gap = document.createElement('div');
                 gap.className = 'label-gap';
@@ -433,13 +490,12 @@
             } else {
               const emptyBox = document.createElement('div');
               emptyBox.className = 'label-box';
-              emptyBox.style.border = '2px dashed #ccc';
+              emptyBox.style.border = '2px dashed #adb5bd';
               emptyBox.style.display = 'flex';
               emptyBox.style.alignItems = 'center';
               emptyBox.style.justifyContent = 'center';
-              emptyBox.innerHTML = '<div style="color:#aaa;font-size:22px;font-weight:500;">খালি লেবেল</div>';
+              emptyBox.innerHTML = '<div style="color:#6c757d;font-size:22px;font-weight:500;">খালি লেবেল</div>';
               page.appendChild(emptyBox);
-
               if (i === 0) {
                 const gap = document.createElement('div');
                 gap.className = 'label-gap';
@@ -466,73 +522,49 @@
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0);
-
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             const totalPixels = canvas.width * canvas.height;
             let transparentCount = 0;
-
             for (let i = 0; i < data.length; i += 4) {
               if (data[i + 3] < 20) transparentCount++;
             }
             const hasTransparency = (transparentCount / totalPixels) > 0.02;
-
             for (let i = 0; i < data.length; i += 4) {
-              const r = data[i],
-                g = data[i + 1],
-                b = data[i + 2],
-                a = data[i + 3];
-              if (a < 20) {
-                data[i + 3] = 0;
-                continue;
-              }
+              const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+              if (a < 20) { data[i+3] = 0; continue; }
               const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
               if (hasTransparency) {
-                data[i] = 0;
-                data[i + 1] = 0;
-                data[i + 2] = 0;
-                data[i + 3] = 255;
+                data[i] = 0; data[i+1] = 0; data[i+2] = 0; data[i+3] = 255;
               } else {
-                if (brightness < 45) {
-                  data[i + 3] = 0;
-                } else {
-                  data[i] = 0;
-                  data[i + 1] = 0;
-                  data[i + 2] = 0;
-                  data[i + 3] = 255;
-                }
+                if (brightness < 45) { data[i+3] = 0; }
+                else { data[i] = 0; data[i+1] = 0; data[i+2] = 0; data[i+3] = 255; }
               }
             }
-
             ctx.putImageData(imageData, 0, 0);
             processedLogoDataUrl = canvas.toDataURL('image/png');
-
             document.getElementById('logoStatus').textContent = '✓ লোগো প্রস্তুত';
             document.getElementById('logoStatus').style.color = '#0f5132';
             renderPrintPages();
           } catch (e) {
-            console.warn('Logo processing fallback:', e);
             processedLogoDataUrl = LOGO_URL;
             renderPrintPages();
             document.getElementById('logoStatus').textContent = '⚠️ লোগো (ফলব্যাক)';
           }
         };
-
         img.onerror = function() {
           processedLogoDataUrl = null;
           document.getElementById('logoStatus').textContent = '❌ লোগো লোড হয়নি';
           document.getElementById('logoStatus').style.color = '#b91c1c';
           renderPrintPages();
         };
-
         img.src = LOGO_URL;
       }
 
       document.getElementById('addLabelBtn').addEventListener('click', () => {
-        labelsData.push("");
+        labelsData.push("তারিখ\nনাম\nমোবাইল\nঠিকানা\nসাইজ\nমূল্য\nডেলিভারি");
         renderAll();
       });
-
       document.getElementById('refreshBtn').addEventListener('click', renderAll);
 
       window.addEventListener('load', () => {
